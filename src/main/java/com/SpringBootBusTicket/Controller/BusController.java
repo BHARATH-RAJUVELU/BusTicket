@@ -19,6 +19,8 @@ import com.SpringBootBusTicket.Entity.BusTicket;
 import com.SpringBootBusTicket.Entity.Tickets;
 import com.SpringBootBusTicket.Service.BusService;
 
+import jakarta.servlet.http.HttpSession;
+
 
 
 @Controller
@@ -72,12 +74,18 @@ public class BusController {
 	}
 	
 	@PostMapping("/search-buses")
-	public String Save(@ModelAttribute Tickets tickets) {
+	public String Save(@ModelAttribute Tickets tickets,HttpSession httpSession) {
+		
+		BusTicket ticket=	(BusTicket) httpSession.getAttribute("bus");
+		System.out.println(ticket);
+		System.out.println("the above is a BUSTICKET");
+		tickets.setBusTicket(ticket);
 		busService.saveTickets(tickets);
 //		busService.createBusTicket(BusTicketId, tickets);
 		return "Search";
 		
 	}
+	
 	
 
 

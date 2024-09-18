@@ -38,11 +38,12 @@ public class Tickets {
 	private int seats;
 	
 	@ManyToOne
-	@JoinColumn(name ="BusTicketId")
 	private BusTicket busTicket;
 
-//	public void setBusTicket(Optional<BusTicket> busTicket2) {
-//		
-//	}
+	public void setBusTicket(BusTicket busTicket2) {
+		
+		this.busTicket=busTicket2;
+		
+	}
 
 }

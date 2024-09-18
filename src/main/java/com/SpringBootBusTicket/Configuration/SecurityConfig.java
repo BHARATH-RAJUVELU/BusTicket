@@ -16,11 +16,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import com.SpringBootBusTicket.Entity.BusTicket;
+import com.SpringBootBusTicket.Service.BusService;
 import com.SpringBootBusTicket.Service.CustomerDetailsService;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @Configuration
 @EnableWebSecurity
@@ -29,6 +32,9 @@ public class SecurityConfig {
 	
 	@Autowired
 	private CustomerDetailsService customerDetailsService;
+	
+	@Autowired
+	private BusService busService;
 	
 	@Bean
 	public AuthenticationProvider authenticationProvider() {
@@ -53,13 +59,27 @@ public class SecurityConfig {
 		})
 		.formLogin(formlogin-> {
 			formlogin.loginPage("/login").successHandler(new AuthenticationSuccessHandler() {
-				
+		
 				@Override
+				@Bean
 				public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 						Authentication authentication) throws IOException, ServletException {
+					String username = authentication.getName();
+			        System.out.println(username );
+			        // Retrieve the user object from the database
+			        BusTicket user = busService.getuser(username);
+			        if(user==null) {
+			        	System.out.println("user is null");
+			        }
+			        
+			        // Store the user object in the session
+			        HttpSession session = request.getSession();
+			        session.setAttribute("bus", user);
 					response.sendRedirect("/search-buses");
 					
 				}
+				
+				
 			});
 		})
 		.build();

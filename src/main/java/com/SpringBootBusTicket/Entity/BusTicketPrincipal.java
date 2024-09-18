@@ -23,11 +23,7 @@ public class BusTicketPrincipal implements UserDetails {
 		this.busTicket=busTicket2;
 	}
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public String getPassword() {
@@ -38,6 +34,14 @@ public class BusTicketPrincipal implements UserDetails {
 	@Override
 	public String getUsername() {
 		return busTicket.getUsername();
+	}
+
+
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

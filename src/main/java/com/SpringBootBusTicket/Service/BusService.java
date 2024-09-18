@@ -12,7 +12,10 @@ import com.SpringBootBusTicket.Entity.Tickets;
 import com.SpringBootBusTicket.Repository.BusRepo;
 import com.SpringBootBusTicket.Repository.TicketRepo;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class BusService {
 	
 	@Autowired
@@ -43,4 +46,8 @@ public class BusService {
 	public Tickets saveTickets(Tickets tickets) {
 		return repo.save(tickets);
 	}
+	public BusTicket getuser(String email) {
+		return busRepo.findByUsername(email);
+	}
+	
 }
