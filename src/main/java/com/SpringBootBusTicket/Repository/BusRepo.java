@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface BusRepo  extends JpaRepository<BusTicket, Integer>{
 
 	BusTicket findByUsername(String username);
-
+//simple hi
 }
