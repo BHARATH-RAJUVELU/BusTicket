@@ -42,12 +42,13 @@ public class SecurityConfig {
 		provider.setUserDetailsService(customerDetailsService);
 		provider.setPasswordEncoder(encoder());
 		return provider;
-		
+		//need add
 	}
 	
 	@Bean
 	public PasswordEncoder encoder() {
 		return new BCryptPasswordEncoder();
+
 	}
 	
 	@Bean
